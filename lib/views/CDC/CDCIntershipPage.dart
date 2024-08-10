@@ -1,38 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:swg_flutter/constants.dart';
+import 'package:swg_flutter/models/CDCDomain.dart';
 
 class CDCIntershipPage extends StatelessWidget {
-  const CDCIntershipPage({super.key});
+  CDCIntershipPage({super.key});
 
-  final List<Map> CDCFields = const [
-    {
-      "name": "Data",
-      "iconURL": "https://cdn-icons-png.flaticon.com/512/9672/9672242.png"
-    },
-    {
-      "name": "Software",
-      "iconURL": "https://cdn-icons-png.flaticon.com/512/8759/8759045.png"
-    },
-    {
-      "name": "Finance",
-      "iconURL": "https://cdn-icons-png.flaticon.com/512/781/781831.png"
-    },
-    {
-      "name": "Core",
-      "iconURL": "https://cdn-icons-png.flaticon.com/512/825/825741.png"
-    },
-    {
-      "name": "Quant",
-      "iconURL": "https://cdn-icons-png.flaticon.com/512/13079/13079983.png"
-    },
-    {
-      "name": "Product",
-      "iconURL": "https://cdn-icons-png.flaticon.com/512/8567/8567886.png"
-    },
-    {
-      "name": "FMCG",
-      "iconURL": "https://cdn-icons-png.flaticon.com/512/4249/4249135.png"
-    }
+  final List<CDCDomain> CDCFields = [
+    CDCDomain(
+        name: 'Data',
+        iconURL: "https://cdn-icons-png.flaticon.com/512/9672/9672242.png"),
+    CDCDomain(
+        name: 'Software',
+        iconURL: "https://cdn-icons-png.flaticon.com/512/8759/8759045.png"),
+    CDCDomain(
+        name: 'Finance',
+        iconURL: "https://cdn-icons-png.flaticon.com/512/781/781831.png"),
+    CDCDomain(
+        name: 'Core',
+        iconURL: "https://cdn-icons-png.flaticon.com/512/825/825741.png"),
+    CDCDomain(
+        name: 'Quant',
+        iconURL: "https://cdn-icons-png.flaticon.com/512/13079/13079983.png"),
+    CDCDomain(
+        name: 'Product',
+        iconURL: "https://cdn-icons-png.flaticon.com/512/8567/8567886.png"),
+    CDCDomain(
+        name: 'FMCG',
+        iconURL: "https://cdn-icons-png.flaticon.com/512/4249/4249135.png")
   ];
 
   @override
@@ -138,8 +132,8 @@ class CDCIntershipPage extends StatelessWidget {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Image(
-                                    image: NetworkImage(
-                                        CDCFields[index]['iconURL']),
+                                    image:
+                                        NetworkImage(CDCFields[index].iconURL),
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -151,8 +145,8 @@ class CDCIntershipPage extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          CDCFields[index]['name'].toString(),
-                                          style: TextStyle(
+                                          CDCFields[index].name,
+                                          style: const TextStyle(
                                             fontSize: 18,
                                           ),
                                         ),
