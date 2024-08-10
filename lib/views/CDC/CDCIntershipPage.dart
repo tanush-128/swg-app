@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:swg_flutter/constants.dart';
 import 'package:swg_flutter/models/CDCDomain.dart';
+import 'package:swg_flutter/views/CDC/BlogsListView.dart';
 
 class CDCIntershipPage extends StatelessWidget {
   CDCIntershipPage({super.key});
 
   final List<CDCDomain> CDCFields = [
     CDCDomain(
-        name: 'Data',
+        name: 'Data Analytics',
         iconURL: "https://cdn-icons-png.flaticon.com/512/9672/9672242.png"),
     CDCDomain(
         name: 'Software',
@@ -44,18 +45,6 @@ class CDCIntershipPage extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).pop();
             }),
-        actions: const [
-          Icon(
-            Icons.search,
-            color: Colors.black,
-            size: 28,
-          ),
-          Icon(
-            Icons.more_vert,
-            color: Colors.black,
-            size: 28,
-          ),
-        ],
         centerTitle: true,
         title: const Text(
           "CDC Internship Blogs",
@@ -66,21 +55,25 @@ class CDCIntershipPage extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 20.0),
+          padding: const EdgeInsets.symmetric(vertical: 30.0, horizontal: 10.0),
           decoration: BoxDecoration(
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(12)),
             color: GlobalStyles.kPrimaryBlueColor,
           ),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Image.asset(
                 'assets/images/internship.png',
-                scale: 6,
+                height: 60,
+                width: 60,
               ),
               const SizedBox(
                 height: 10,
               ),
               const Text(
                 "CDC Internship",
+                textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
               ),
               // const Padding(
@@ -107,53 +100,62 @@ class CDCIntershipPage extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 620,
+                height: 500,
                 child: ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     itemCount: CDCFields.length,
-                    itemBuilder: (context, index) => Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(12)),
-                          color: const Color.fromARGB(255, 163, 234, 254),
-                          // decoration: const BoxDecoration(
-                          //       borderRadius:
-                          //           const BorderRadius.all(Radius.circular(12.0)),
-                          //       color: const Color.fromARGB(255, 163, 234, 254),
-                          //     ),
+                    itemBuilder: (context, index) => GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    BlogsListView(domain: CDCFields[index])));
+                          },
+                          child: Container(
+                            decoration: GlobalStyles.blueShadowCardDeco,
+                            // decoration: const BoxDecoration(
+                            //       borderRadius:
+                            //           const BorderRadius.all(Radius.circular(12.0)),
+                            //       color: const Color.fromARGB(255, 163, 234, 254),
+                            //     ),
 
-                          margin: const EdgeInsets.symmetric(vertical: 6.0),
-                          child: SizedBox(
-                            height: 75,
-                            width: double.infinity,
-                            child: Padding(
-                              padding: const EdgeInsets.all(12.0),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Image(
-                                    image:
-                                        NetworkImage(CDCFields[index].iconURL),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 8.0, horizontal: 20),
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          CDCFields[index].name,
-                                          style: const TextStyle(
-                                            fontSize: 18,
-                                          ),
-                                        ),
-                                      ],
+                            margin: const EdgeInsets.symmetric(
+                                vertical: 6.0, horizontal: 8),
+
+                            child: SizedBox(
+                              height: 60,
+                              child: Padding(
+                                padding: const EdgeInsets.all(12.0),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Image(
+                                      image: NetworkImage(
+                                        CDCFields[index].iconURL,
+                                      ),
+                                      height: 50,
+                                      width: 50,
                                     ),
-                                  ),
-                                ],
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 0, horizontal: 20),
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            CDCFields[index].name,
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),

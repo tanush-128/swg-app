@@ -711,7 +711,7 @@ const foresightDummyData = {
           "Url":
               "https://medium.com/@swgiitkgp/foresight-2023-summer-internship-at-goldman-sachs-vishal-kumar-c3fed68669fc",
           "desc":
-              "Goldman Sachs offers software and quant intern roles on our campus, open to students from all departments with no CGPA cutoff. "
+              "Goldman Sachs offers Software and quant intern roles on our campus, open to students from all departments with no CGPA cutoff. "
         },
         {
           "Company": "Goldman Sachs",
@@ -724,7 +724,7 @@ const foresightDummyData = {
         }
       ]
     },
-    "software": {
+    "Software": {
       "2018": [
         {
           "Company": "Flipkart",
@@ -1942,7 +1942,7 @@ const foresightDummyData = {
         }
       ]
     },
-    "software": {
+    "Software": {
       "2018": [
         {
           "Company": "Uber",
@@ -1994,7 +1994,7 @@ const foresightDummyData = {
           "Image": "NULL",
           "Name": "Meet Joshi",
           "Url":
-              "https://medium.com/@swgiitkgp/foresight-2021-software-development-engineer-at-amazon-meet-joshi-53e9e764809d",
+              "https://medium.com/@swgiitkgp/foresight-2021-Software-development-engineer-at-amazon-meet-joshi-53e9e764809d",
           "desc": " Life is not a sprint, it is a marathon"
         },
         {
@@ -2010,7 +2010,7 @@ const foresightDummyData = {
           "Image": "NULL",
           "Name": "Vineeth",
           "Url":
-              "https://medium.com/@swgiitkgp/foresight-2021-software-developer-at-cisco-vineeth-a59d86a3fd9b",
+              "https://medium.com/@swgiitkgp/foresight-2021-Software-developer-at-cisco-vineeth-a59d86a3fd9b",
           "desc": "2nd in fortune’s best places to work in 2021"
         },
         {
