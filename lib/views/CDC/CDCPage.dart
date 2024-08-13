@@ -50,8 +50,6 @@ class CDCPage extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                // Navigator.of(context).push(MaterialPageRoute(
-                //     builder: (context) => const CDCIntershipPage()));
                 Navigator.of(context).pushNamed('/cdcinternshipblogs');
               },
               child: Container(
@@ -70,17 +68,22 @@ class CDCPage extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              decoration: GlobalStyles.blueShadowCardDeco,
-              margin: const EdgeInsets.all(12.0),
-              child: const SizedBox(
-                height: 75,
-                width: double.infinity,
-                child: Center(
-                  child: Text(
-                    'CDC Placement Blogs',
-                    style:
-                        TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+            InkWell(
+              onTap: () {
+                Navigator.of(context).pushNamed('/cdcplacementblogs');
+              },
+              child: Container(
+                decoration: GlobalStyles.blueShadowCardDeco,
+                margin: const EdgeInsets.all(12.0),
+                child: const SizedBox(
+                  height: 75,
+                  width: double.infinity,
+                  child: Center(
+                    child: Text(
+                      'CDC Placement Blogs',
+                      style: TextStyle(
+                          fontSize: 18.0, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
               ),

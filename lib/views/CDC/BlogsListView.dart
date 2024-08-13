@@ -6,12 +6,13 @@ import 'package:url_launcher/url_launcher.dart';
 
 class BlogsListView extends StatelessWidget {
   final CDCDomain domain;
-  const BlogsListView({super.key, required this.domain});
+  final String type;
+  const BlogsListView({super.key, required this.domain, required this.type});
 
   @override
   Widget build(BuildContext context) {
     final List blogsList =
-        foresightDummyData['internship']![domain.name]!['2018'] as List;
+        foresightDummyData[type]![domain.name]!['2018'] as List;
     return Scaffold(
       appBar: AppBar(
         actionsIconTheme: const IconThemeData(color: Colors.black),

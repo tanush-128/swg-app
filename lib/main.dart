@@ -200,7 +200,12 @@ class _MainAppState extends State<MainApp> {
               ),
               body: const ProfileView(),
             ),
-        '/cdcinternshipblogs': (context) => CDCIntershipPage(),
+        '/cdcinternshipblogs': (context) => CDCIntershipPage(
+              heading: 'Internship',
+            ),
+        '/cdcplacementblogs': (context) => CDCIntershipPage(
+              heading: 'Placement',
+            ),
         '/event-view': (context) => EventView(event: event),
         '/first-year-sm': (context) => const FirstYearSM(),
         '/second-year-sm': (context) => const SecondYearSM(),

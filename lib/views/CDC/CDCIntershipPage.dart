@@ -4,7 +4,8 @@ import 'package:swg_flutter/models/CDCDomain.dart';
 import 'package:swg_flutter/views/CDC/BlogsListView.dart';
 
 class CDCIntershipPage extends StatelessWidget {
-  CDCIntershipPage({super.key});
+  final String heading;
+  CDCIntershipPage({super.key, required this.heading});
 
   final List<CDCDomain> CDCFields = [
     CDCDomain(
@@ -46,9 +47,9 @@ class CDCIntershipPage extends StatelessWidget {
               Navigator.of(context).pop();
             }),
         centerTitle: true,
-        title: const Text(
-          "CDC Internship Blogs",
-          style: TextStyle(color: Colors.black),
+        title: Text(
+          "CDC $heading Blogs",
+          style: const TextStyle(color: Colors.black),
         ),
         shadowColor: Colors.transparent,
         backgroundColor: Colors.transparent,
@@ -71,10 +72,11 @@ class CDCIntershipPage extends StatelessWidget {
               const SizedBox(
                 height: 10,
               ),
-              const Text(
-                "CDC Internship",
+              Text(
+                "CDC $heading",
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20.0, fontWeight: FontWeight.bold),
+                style: const TextStyle(
+                    fontSize: 20.0, fontWeight: FontWeight.bold),
               ),
               // const Padding(
               //   padding: EdgeInsets.all(8.0),
@@ -107,8 +109,12 @@ class CDCIntershipPage extends StatelessWidget {
                     itemBuilder: (context, index) => GestureDetector(
                           onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) =>
-                                    BlogsListView(domain: CDCFields[index])));
+                                builder: (context) => BlogsListView(
+                                      domain: CDCFields[index],
+                                      type: heading == 'Placement'
+                                          ? 'placement'
+                                          : 'internship',
+                                    )));
                           },
                           child: Container(
                             decoration: GlobalStyles.blueShadowCardDeco,
