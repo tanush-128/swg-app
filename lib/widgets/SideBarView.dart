@@ -7,6 +7,7 @@ class SideBarView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Container(
       height: MediaQuery.of(context).size.height,
       padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 4),
@@ -17,7 +18,7 @@ class SideBarView extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const SizedBox(height: 10),
+            SizedBox(height: size.height * 0.05),
             SizedBox(
               width: double.infinity,
               child: Padding(
@@ -47,42 +48,42 @@ class SideBarView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Positioned(
-                          left: 75,
-                          bottom: 10,
-                          child: Container(
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 2,
-                                ),
-                                borderRadius: BorderRadius.circular(100),
-                              ),
-                              child: const Padding(
-                                padding: EdgeInsets.all(2.0),
-                                child: Icon(Icons.edit, size: 16),
-                              )),
-                        )
+                        // Positioned(
+                        //   left: 75,
+                        //   bottom: 10,
+                        //   child: Container(
+                        //       decoration: BoxDecoration(
+                        //         color: Colors.white,
+                        //         border: Border.all(
+                        //           color: Colors.black,
+                        //           width: 2,
+                        //         ),
+                        //         borderRadius: BorderRadius.circular(100),
+                        //       ),
+                        //       child: const Padding(
+                        //         padding: EdgeInsets.all(2.0),
+                        //         child: Icon(Icons.edit, size: 16),
+                        //       )),
+                        // )
                       ],
                     ),
                     const SizedBox(height: 10),
                     const Text(
-                      "KGPIAN",
+                      " KGPIAN",
                       style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                     ),
-                    const SizedBox(height: 10),
                     InkWell(
                       onTap: () {
-                        Navigator.of(context).pushNamed('/profile');
+                        Navigator.of(context).pop();
+                        changeIndex(3);
                       },
-                      child: Text(
-                        "View Profile",
+                      child: const Text(
+                        " View Profile",
                         style: TextStyle(
-                            color: Color.fromARGB(255, 33, 149, 243),
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500),
+                          color: Color.fromARGB(255, 33, 149, 243),
+                          fontSize: 13,
+                        ),
                       ),
                     ),
                   ],
@@ -90,7 +91,7 @@ class SideBarView extends StatelessWidget {
               ),
             ),
             const Divider(),
-            const SizedBox(height: 10),
+            const SizedBox(height: 6),
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 32.0, vertical: 10),
@@ -105,7 +106,7 @@ class SideBarView extends StatelessWidget {
                       route: '/studymaterial',
                       onClick: () {
                         Navigator.of(context).pop();
-                        changeIndex(0);
+                        changeIndex(1);
                       },
                     ),
                     const Options(
@@ -114,9 +115,13 @@ class SideBarView extends StatelessWidget {
                     ),
                     const Options(
                         title: "Societies of KGP", route: '/societies'),
-                    const Options(
+                    Options(
                       title: "Featured Blogs",
                       route: '/cdcinternshipblogs',
+                      onClick: () {
+                        Navigator.of(context).pop();
+                        changeIndex(2);
+                      },
                     ),
                     const Options(title: "Our Team", route: '/ourteam'),
                   ],
@@ -162,7 +167,7 @@ class Options extends StatelessWidget {
         ),
         child: Text(
           title,
-          style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
         ),
       ),
     );
