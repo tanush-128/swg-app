@@ -33,8 +33,8 @@ class YearWiseTile extends StatelessWidget {
                 fit: BoxFit.cover)),
         child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
           Text(
-            "$year Year",
-            style: const TextStyle(fontSize: 20, color: Colors.amber),
+            year == "UG" || year == "PG" ? year : "$year Year",
+            style: const TextStyle(fontSize: 18, color: Colors.amber),
           ),
           const SizedBox(
             height: 5,

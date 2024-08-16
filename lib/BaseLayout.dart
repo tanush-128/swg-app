@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:swg_flutter/views/CDC/CDCPage.dart';
-import 'package:swg_flutter/views/CommunityPage.dart';
 import 'package:swg_flutter/views/LandingPage.dart';
 import 'package:swg_flutter/views/ProfileView.dart';
 import 'package:swg_flutter/views/StudyMaterial.dart';
+import 'package:swg_flutter/views/StudyMaterialUG.dart';
 import 'package:swg_flutter/widgets/SideBarView.dart';
 
 class HomePage extends StatefulWidget {

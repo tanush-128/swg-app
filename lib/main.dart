@@ -17,6 +17,8 @@ import 'package:swg_flutter/views/CDC/CDCIntershipPage.dart';
 import 'package:swg_flutter/views/ProfileView.dart';
 import 'package:swg_flutter/views/SocietiesPage.dart';
 import 'package:swg_flutter/views/StudyMaterial.dart';
+import 'package:swg_flutter/views/StudyMaterialPG.dart';
+import 'package:swg_flutter/views/StudyMaterialUG.dart';
 import 'package:swg_flutter/views/subviews/BenifitsOfInstiIdPage.dart';
 import 'package:swg_flutter/views/subviews/EventView.dart';
 import 'package:swg_flutter/views/subviews/KnowYourDepartment.dart';
@@ -215,6 +217,8 @@ class _MainAppState extends State<MainApp> {
         '/knowyourdep': (context) => const KnowYourDepartment(),
         '/benefitsofinsti': (context) => const BenifitsOfInstiId(),
         '/studymaterial': (context) => const StudyMaterial(),
+        '/studymaterialug': (context) => const StudyMaterialUG(),
+        '/studymaterialpg': (context) => const StudyMaterialPG(),
         '/noticeboard': (context) => const NoticeBoard(),
         '/ourteam': (context) => OurTeamPage(),
         '/mentor-mentee': (context) => const MentorMenteePage(),

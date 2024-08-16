@@ -7,9 +7,10 @@ class SMComingSoon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return const Padding(
+      padding: EdgeInsets.symmetric(vertical: 20.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Text(
             "Coming Soon",
