@@ -130,26 +130,7 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
 
-              //community
-              // GestureDetector(
-              //   child: _selectedIndex == 3
-              //       ? const ImageIcon(
-              //           AssetImage('assets/images/blue/group.png'),
-              //           size: 30.0,
-              //           color: Colors.blue,
-              //         )
-              //       : const ImageIcon(
-              //           AssetImage('assets/images/group.png'),
-              //           size: 30.0,
-              //         ),
-              //   onTap: () {
-              //     setState(() {
-              //       controller.jumpToPage(3);
 
-              //       _selectedIndex = 3;
-              //     });
-              //   },
-              // ),
 
               //profile
               GestureDetector(

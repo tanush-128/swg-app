@@ -123,6 +123,7 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+        useMaterial3: true,
         primaryColor: GlobalStyles.kPrimaryBlueColor,
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(

@@ -32,8 +32,13 @@ class Notice {
   });
   static Future<List<Notice>> getAll() async {
     try {
+      // get only where published is true
       final querySnapshot =
-          await FirebaseFirestore.instance.collection('notices').get();
+          // await FirebaseFirestore.instance.collection('notices').get();
+          await FirebaseFirestore.instance
+              .collection('notices')
+              .where('published', isEqualTo: true)
+              .get();
       return querySnapshot.docs.map((doc) {
         return Notice(
           heading: doc['heading'],
