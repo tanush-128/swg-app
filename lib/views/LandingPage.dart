@@ -676,6 +676,7 @@ class EventBanner extends StatelessWidget {
               image: const DecorationImage(
                 image: AssetImage('assets/images/cos1.png'),
                 fit: BoxFit.cover,
+                alignment: Alignment.topCenter,
                 opacity: 0.8,
                 colorFilter: ColorFilter.mode(
                     Color.fromARGB(137, 37, 37, 37), BlendMode.colorBurn),

@@ -69,21 +69,21 @@ final socsJson = [
         "https://www.linkedin.com/company/student-welfare-group-iit-kharagpur/"
   },
   {
-    "name": "Kharagpur Open Source Society",
-    "image_name": "koss.jpeg",
+    "name": "Institute Wellness Group",
+    "image_name": "iwg.png",
     "insta_url":
-        "https://www.instagram.com/kossiitkgp?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
-    "facebook_url": "https://www.facebook.com/kossiitkgp",
+        "https://www.instagram.com/iwg_iitkgp?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    "facebook_url": "https://www.facebook.com/iwg.iitkgp",
     "linkedin_url":
-        "https://www.linkedin.com/company/kharagpur-open-source-society/"
+        "https://www.linkedin.com/company/institute-wellness-group-iit-kharagpur/"
   },
   {
-    "name": "Blockchain",
-    "image_name": "kbs.webp",
+    "name": "Ambar",
+    "image_name": "ambar.jpeg",
     "insta_url":
-        "https://www.instagram.com/blockchainkgp?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
-    "facebook_url": "https://www.facebook.com/blockchainkgp",
-    "linkedin_url": "https://www.linkedin.com/company/blockchainkgp/"
+        "https://www.instagram.com/ambar_iitkgp?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    "facebook_url": "(20+) Ambar - IIT Kharagpur | Facebook",
+    "linkedin_url": "Ambar IIT Kharagpur: Overview | LinkedIn"
   },
   {
     "name": "Awaaz",
@@ -103,6 +103,23 @@ final socsJson = [
         "https://www.linkedin.com/company/technology-culinary-arts-society/"
   },
   {
+    "name": "Kharagpur Open Source Society",
+    "image_name": "koss.jpeg",
+    "insta_url":
+        "https://www.instagram.com/kossiitkgp?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    "facebook_url": "https://www.facebook.com/kossiitkgp",
+    "linkedin_url":
+        "https://www.linkedin.com/company/kharagpur-open-source-society/"
+  },
+  {
+    "name": "Blockchain",
+    "image_name": "kbs.webp",
+    "insta_url":
+        "https://www.instagram.com/blockchainkgp?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
+    "facebook_url": "https://www.facebook.com/blockchainkgp",
+    "linkedin_url": "https://www.linkedin.com/company/blockchainkgp/"
+  },
+  {
     "name": "Debating Society, IIT Kharagpur",
     "image_name": "debsoc.png",
     "insta_url":
@@ -110,14 +127,6 @@ final socsJson = [
     "facebook_url": "https://www.facebook.com/kgpdebsoc",
     "linkedin_url":
         "https://www.linkedin.com/company/debating-society-iit-kharagpur/"
-  },
-  {
-    "name": "Ambar",
-    "image_name": "ambar.jpeg",
-    "insta_url":
-        "https://www.instagram.com/ambar_iitkgp?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
-    "facebook_url": "(20+) Ambar - IIT Kharagpur | Facebook",
-    "linkedin_url": "Ambar IIT Kharagpur: Overview | LinkedIn"
   },
   {
     "name": "Breakfree: Technology dance Society",
@@ -242,15 +251,6 @@ final socsJson = [
         "https://www.instagram.com/grimoireofcode?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
     "facebook_url": "https://www.facebook.com/goc.iitkgp",
     "linkedin_url": "https://www.linkedin.com/company/grimoire-of-code/"
-  },
-  {
-    "name": "Institute Wellness Group",
-    "image_name": "iwg.png",
-    "insta_url":
-        "https://www.instagram.com/iwg_iitkgp?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==",
-    "facebook_url": "https://www.facebook.com/iwg.iitkgp",
-    "linkedin_url":
-        "https://www.linkedin.com/company/institute-wellness-group-iit-kharagpur/"
   },
   {
     "name": "International Relations Cell",
