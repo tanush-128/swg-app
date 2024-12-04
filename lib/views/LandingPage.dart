@@ -3,6 +3,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:swg_flutter/constants.dart';
 import 'package:swg_flutter/models/Department.dart';
+import 'package:swg_flutter/models/Event.dart';
 import 'package:swg_flutter/models/Society.dart';
 import 'package:swg_flutter/views/SocietiesPage.dart';
 import 'package:swg_flutter/views/subviews/KnowYourDepartment.dart';
@@ -86,20 +87,33 @@ class LandingPage extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 4),
-                        CarouselSlider(
-                          options: CarouselOptions(
-                            height: 150.0,
-                            enlargeFactor: 1.2,
-                            autoPlay: true,
-                            viewportFraction: 1,
-                          ),
-                          items: [1, 2, 3, 4, 5].map((i) {
-                            return Builder(
-                              builder: (BuildContext context) {
-                                return const EventBanner();
-                              },
+                        FutureBuilder(
+                          future: BriefEvent.getAll(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                            if (snapshot.hasError) {
+                              return const Center(
+                                child: Text('An error occurred'),
+                              );
+                            }
+                            final events = snapshot.data as List<BriefEvent>;
+                            return CarouselSlider(
+                              options: CarouselOptions(
+                                height: 150.0,
+                                enlargeFactor: 1.2,
+                                autoPlay: true,
+                                viewportFraction: 1,
+                              ),
+                              items: events.map((i) {
+                                return EventBanner(event: i);
+                              }).toList(),
                             );
-                          }).toList(),
+                          },
                         ),
                         const SizedBox(height: 12),
                         Column(
@@ -659,9 +673,9 @@ class LandingPage extends StatelessWidget {
 }
 
 class EventBanner extends StatelessWidget {
-  const EventBanner({
-    super.key,
-  });
+  final BriefEvent event;
+
+  const EventBanner({super.key, required this.event});
 
   @override
   Widget build(BuildContext context) {
@@ -681,46 +695,47 @@ class EventBanner extends StatelessWidget {
                 colorFilter: ColorFilter.mode(
                     Color.fromARGB(137, 37, 37, 37), BlendMode.colorBurn),
               )),
-          child: const Stack(
+          child: Stack(
             children: [
               Positioned(
                 top: 0,
                 left: 0,
                 child: Padding(
-                  padding: EdgeInsets.all(12.0),
+                  padding: const EdgeInsets.all(12.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Carrer Orientation Session",
-                          style: TextStyle(
+                      Text(event.heading,
+                          style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                               color: Color.fromRGBO(241, 191, 87, 1))),
-                      Text("Student Welfare Group",
+                      const Text("Student Welfare Group",
                           style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
                               color: Colors.white)),
-                      Text("Date and Time: ",
-                          style: TextStyle(
+                      Text(
+                          "${event.dateTime.day}/${event.dateTime.month}/${event.dateTime.year} ${event.dateTime.hour}:${event.dateTime.minute.toString().padLeft(2, '0')}",
+                          style: const TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w500,
                               color: Colors.white)),
-                      Text("Location: ",
-                          style: TextStyle(
+                      Text("Location: ${event.location}",
+                          style: const TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.w500,
                               color: Colors.white)),
-                      Text("Target Audience:",
-                          style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white)),
+                      // Text("Target Audience:",
+                      //     style: TextStyle(
+                      //         fontSize: 13,
+                      //         fontWeight: FontWeight.w500,
+                      //         color: Colors.white)),
                     ],
                   ),
                 ),
               ),
-              Positioned(
+              const Positioned(
                   bottom: 4,
                   right: 8,
                   child: Text("Know More >",

@@ -44,7 +44,7 @@ class _NoticeBoardState extends State<NoticeBoard> {
             ),
           ),
           body: TabBarView(
-            children: [NoticesView(), EventsView()],
+            children: [NoticesView(), EventsView()], // add this later
           ),
         ));
   }

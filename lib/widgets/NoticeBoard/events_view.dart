@@ -13,11 +13,27 @@ class EventsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 5,
-      itemBuilder: (context, index) {
-        return EventTile(
-          event: events[0],
+    return FutureBuilder(
+      future: BriefEvent.getAll(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (snapshot.hasError) {
+          return const Center(
+            child: Text('An error occurred'),
+          );
+        }
+        final events = snapshot.data as List<BriefEvent>;
+        return ListView.builder(
+          itemCount: events.length,
+          itemBuilder: (context, index) {
+            return EventTile(
+              event: events[index],
+            );
+          },
         );
       },
     );

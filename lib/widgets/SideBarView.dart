@@ -110,7 +110,7 @@ class SideBarView extends StatelessWidget {
                       },
                     ),
                     const Options(
-                      title: "Know your departments",
+                      title: "Know your department",
                       route: '/knowyourdep',
                     ),
                     const Options(
