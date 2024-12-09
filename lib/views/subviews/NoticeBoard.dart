@@ -14,7 +14,16 @@ class NoticeBoard extends StatefulWidget {
 class _NoticeBoardState extends State<NoticeBoard> {
   @override
   Widget build(BuildContext context) {
+    int initialIndex = 0;
+    if (ModalRoute.of(context) != null &&
+        ModalRoute.of(context)!.settings.arguments != null) {
+      Map<String, int>? arguments =
+          ModalRoute.of(context)?.settings.arguments as Map<String, int>;
+      initialIndex = arguments['initialIndex'] ?? 0;
+    }
+
     return DefaultTabController(
+        initialIndex: initialIndex,
         length: 2,
         child: Scaffold(
           floatingActionButton: FloatingActionButton(
@@ -44,7 +53,7 @@ class _NoticeBoardState extends State<NoticeBoard> {
             ),
           ),
           body: TabBarView(
-            children: [NoticesView(), EventsView()], // add this later
+            children: [const NoticesView(), EventsView()], // add this later
           ),
         ));
   }

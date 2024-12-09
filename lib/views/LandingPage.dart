@@ -735,15 +735,21 @@ class EventBanner extends StatelessWidget {
                   ),
                 ),
               ),
-              const Positioned(
+              Positioned(
                   bottom: 4,
                   right: 8,
-                  child: Text("Know More >",
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                          decoration: TextDecoration.underline)))
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(context, '/noticeboard',
+                          arguments: <String, int>{'initialIndex': 1});
+                    },
+                    child: const Text("Know More >",
+                        style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                            decoration: TextDecoration.underline)),
+                  ))
             ],
           ),
         ));
@@ -801,7 +807,11 @@ class DepartmentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return GestureDetector(
+      onTap: () {
+        final Uri uri = Uri.parse(department.mediumArticleLink ?? '');
+        launchUrl(uri);
+      },
       // decoration: const BoxDecoration(color: Colors.amber),
       child: Column(
         children: [
