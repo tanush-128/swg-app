@@ -617,7 +617,7 @@ class LandingPage extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Text(
-                    "Benifits of Institute ID",
+                    "Benefits of Institute ID",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
