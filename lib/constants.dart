@@ -92,6 +92,15 @@ class GlobalConstants {
           "https://drive.google.com/drive/folders/1aSo54MIhO1mltD6vg8eL6xYbdpm0yKzK",
     ),
     Department(
+      name: "Geology and Geophysics",
+      image: "assets/images/dept logo/GG.png",
+      code: "GG",
+      mediumArticleLink:
+          "https://medium.com/@swgiitkgp/know-your-department-geology-and-geophysics-31fd09664b3d",
+      studyMaterialLink:
+          "https://drive.google.com/drive/folders/1k47aEgIQ-xeA13yD6ABI9HNNocRo2vQq",
+    ),
+    Department(
       name: "Humanities and Social Sciences",
       image: "assets/images/dept logo/HS.png",
       code: "HS",

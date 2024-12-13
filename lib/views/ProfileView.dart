@@ -1,4 +1,7 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:swg_flutter/widgets/column_tile.dart';
 
 class ProfileView extends StatelessWidget {
@@ -6,8 +9,8 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
+    return Stack(children: [
+      Column(
         children: [
           Stack(
               clipBehavior: Clip.none,
@@ -70,6 +73,22 @@ class ProfileView extends StatelessWidget {
           )
         ],
       ),
-    );
+      BackdropFilter(
+        filter: ImageFilter.blur(
+          sigmaX: 5.0,
+          sigmaY: 5.0,
+        ),
+        child: Container(
+          color: Colors.white.withAlpha(100),
+          constraints: const BoxConstraints.expand(),
+        ),
+      ),
+      const Center(
+        child: Text(
+          'Comming Soon...',
+          style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500),
+        ),
+      )
+    ]);
   }
 }
