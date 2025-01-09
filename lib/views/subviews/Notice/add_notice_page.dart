@@ -55,6 +55,11 @@ class _AddNoticePageState extends State<AddNoticePage> {
         published: published,
       );
       await Notice.createNotice(newNotice);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Request submitted successfully'),
+        ),
+      );
       Navigator.pop(context); // Go back after submitting
     }
   }
@@ -95,7 +100,9 @@ class _AddNoticePageState extends State<AddNoticePage> {
                       value!.isEmpty ? 'Please enter a heading' : null,
                 ),
                 TextFormField(
+                  initialValue: description,
                   decoration: const InputDecoration(labelText: 'Description'),
+                  maxLines: 5,
                   onSaved: (value) => description = value!,
                   validator: (value) =>
                       value!.isEmpty ? 'Please enter a description' : null,

@@ -130,8 +130,6 @@ class _HomePageState extends State<HomePage> {
                 },
               ),
 
-
-
               //profile
               GestureDetector(
                 onTap: () {

@@ -334,30 +334,35 @@ class LandingPage extends StatelessWidget {
                             (e) => Column(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Container(
-                                  height: 50,
-                                  width: 50,
-                                  child: FutureBuilder(
-                                    future: fetchImage(e.image_name),
-                                    builder: (context, snapshot) {
-                                      if (snapshot.connectionState ==
-                                          ConnectionState.done) {
-                                        if (snapshot.hasError) {
-                                          return const Icon(Icons.error);
-                                        }
-                                        if (snapshot.hasData) {
-                                          if (snapshot.data == '') {
+                                InkWell(
+                                  onTap: () {
+                                    launchUrl(Uri.parse(e.insta_url));
+                                  },
+                                  child: SizedBox(
+                                    height: 50,
+                                    width: 50,
+                                    child: FutureBuilder(
+                                      future: fetchImage(e.image_name),
+                                      builder: (context, snapshot) {
+                                        if (snapshot.connectionState ==
+                                            ConnectionState.done) {
+                                          if (snapshot.hasError) {
                                             return const Icon(Icons.error);
                                           }
-                                          return Image.network(
-                                            snapshot.data!,
-                                            height: 40,
-                                            width: 40,
-                                          );
+                                          if (snapshot.hasData) {
+                                            if (snapshot.data == '') {
+                                              return const Icon(Icons.error);
+                                            }
+                                            return Image.network(
+                                              snapshot.data!,
+                                              height: 40,
+                                              width: 40,
+                                            );
+                                          }
                                         }
-                                      }
-                                      return const CircularProgressIndicator();
-                                    },
+                                        return const CircularProgressIndicator();
+                                      },
+                                    ),
                                   ),
                                 ),
                                 const SizedBox(
@@ -785,8 +790,11 @@ class DepartmentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // decoration: const BoxDecoration(color: Colors.amber),
+    return InkWell(
+      onTap: () {
+        final Uri uri = Uri.parse(department.mediumArticleLink ?? '');
+        launchUrl(uri);
+      },
       child: Column(
         children: [
           Image.asset(

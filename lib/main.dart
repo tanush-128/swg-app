@@ -52,7 +52,7 @@ void main() async {
     persistenceEnabled: false,
   );
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
+  await FirebaseMessaging.instance.subscribeToTopic("all-users");
   AwesomeNotifications().initialize(
       null,
       [
