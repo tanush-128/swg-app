@@ -42,6 +42,15 @@ class _AddNoticePageState extends State<AddNoticePage> {
   }
 
   Future<void> _submitForm() async {
+    if (eventTime == null) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Please select event date and time'),
+        ),
+      );
+      return;
+    }
+
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       final newNotice = Notice(
@@ -53,6 +62,8 @@ class _AddNoticePageState extends State<AddNoticePage> {
         imageUrl: _imageFile?.path,
         targetAudience: targetAudience,
         published: published,
+        contactName: contactName,
+        contactNumber: contactNumber,
       );
       await Notice.createNotice(newNotice);
       ScaffoldMessenger.of(context).showSnackBar(
@@ -60,148 +71,254 @@ class _AddNoticePageState extends State<AddNoticePage> {
           content: Text('Request submitted successfully'),
         ),
       );
-      Navigator.pop(context); // Go back after submitting
+      Navigator.pop(context);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-        data: Theme.of(context).copyWith(
-          inputDecorationTheme: InputDecorationTheme(
-            border: const UnderlineInputBorder(),
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: Colors.grey.shade700,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Add Notice'),
+        elevation: 0,
+      ),
+      body: Form(
+        key: _formKey,
+        child: ListView(
+          padding: const EdgeInsets.all(20.0),
+          children: <Widget>[
+            // Section 1: Event Details
+            Container(
+              margin: const EdgeInsets.only(bottom: 16),
+              child: Text(
+                "Event Details",
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
               ),
             ),
-            contentPadding: const EdgeInsets.all(10),
-            focusedBorder: const UnderlineInputBorder(
-              borderSide: BorderSide(color: Colors.black),
+
+            // Form fields with consistent styling
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Event Title',
+                filled: true,
+                fillColor: Colors.grey[100],
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+              onSaved: (value) => heading = value!,
+              validator: (value) =>
+                  value!.isEmpty ? 'Please enter an event title' : null,
             ),
-            labelStyle: TextStyle(color: Colors.grey.shade600),
-          ),
-        ),
-        child: Scaffold(
-          appBar: AppBar(
-            title: const Text('Request to add notice'),
-          ),
-          body: Form(
-            key: _formKey,
-            child: ListView(
-              padding: const EdgeInsets.all(16.0),
-              children: <Widget>[
-                Text("Event Details",
-                    style: Theme.of(context).textTheme.headlineSmall),
-                TextFormField(
-                  decoration: const InputDecoration(labelText: 'Heading'),
-                  onSaved: (value) => heading = value!,
-                  validator: (value) =>
-                      value!.isEmpty ? 'Please enter a heading' : null,
+            const SizedBox(height: 16),
+
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Description',
+                filled: true,
+                fillColor: Colors.grey[100],
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide.none,
                 ),
-                TextFormField(
-                  initialValue: description,
-                  decoration: const InputDecoration(labelText: 'Description'),
-                  maxLines: 5,
-                  onSaved: (value) => description = value!,
-                  validator: (value) =>
-                      value!.isEmpty ? 'Please enter a description' : null,
-                ),
-                TextFormField(
-                  decoration: const InputDecoration(labelText: 'Location'),
-                  onSaved: (value) => location = value!,
-                  validator: (value) =>
-                      value!.isEmpty ? 'Please enter a location' : null,
-                ),
-                TextFormField(
-                  decoration: const InputDecoration(labelText: 'Host'),
-                  onSaved: (value) => host = value!,
-                  validator: (value) =>
-                      value!.isEmpty ? 'Please enter the host' : null,
-                ),
-                ListTile(
-                  title: const Text("Event Date and Time"),
-                  subtitle: Text(eventTime?.toString() ?? 'No date chosen'),
-                  onTap: () async {
-                    final chosenDate = await showDatePicker(
+              ),
+              maxLines: 5,
+              onSaved: (value) => description = value!,
+            ),
+            const SizedBox(height: 16),
+
+            TextFormField(
+              decoration: const InputDecoration(labelText: 'Location *'),
+              onSaved: (value) => location = value!,
+              validator: (value) =>
+                  value!.isEmpty ? 'Please enter a location' : null,
+            ),
+            const SizedBox(height: 16),
+
+            TextFormField(
+              decoration: const InputDecoration(labelText: 'Host *'),
+              onSaved: (value) => host = value!,
+              validator: (value) =>
+                  value!.isEmpty ? 'Please enter the host' : null,
+            ),
+            const SizedBox(height: 16),
+
+            ListTile(
+              title: const Text("Event Date and Time *"),
+              subtitle: Text(eventTime?.toString() ?? 'No date chosen'),
+              onTap: () async {
+                final chosenDate = await showDatePicker(
+                  context: context,
+                  initialDate: eventTime ?? DateTime.now(),
+                  firstDate: DateTime.now(),
+                  lastDate: DateTime(2100),
+                );
+                if (chosenDate != null) {
+                  final chosenTime = await showTimePicker(
                       context: context,
-                      initialDate: eventTime ?? DateTime.now(),
-                      firstDate: DateTime.now(),
-                      lastDate: DateTime(2100),
-                    );
-                    if (chosenDate != null) {
-                      final chosenTime = await showTimePicker(
-                          context: context,
-                          initialTime: TimeOfDay.fromDateTime(
-                              eventTime ?? DateTime.now()));
-                      setState(() {
-                        eventTime = DateTime(
-                            chosenDate.year,
-                            chosenDate.month,
-                            chosenDate.day,
-                            chosenTime?.hour ?? 0,
-                            chosenTime?.minute ?? 0);
-                      });
-                    }
-                  },
-                ),
-                DropdownButtonFormField(
-                  value: targetAudience,
-                  decoration:
-                      const InputDecoration(labelText: 'Target Audience'),
-                  items: targetAudiences.map((String audience) {
-                    return DropdownMenuItem(
-                      value: audience,
-                      child: Text(audience),
-                    );
-                  }).toList(),
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      targetAudience = newValue!;
-                    });
-                  },
-                ),
-                ListTile(
-                  title: const Text("Upload Image"),
-                  subtitle: Text(_imageFile == null ? 'No image selected' : ""),
-                  onTap: _pickImage,
-                ),
-                //display the image
-                if (_imageFile != null)
-                  Image.file(
-                    File(_imageFile!.path),
-                    width: MediaQuery.of(context).size.width * 0.8,
-                  ),
-                const SizedBox(height: 20),
-
-                Text("Contact Details",
-                    style: Theme.of(context).textTheme.headlineSmall),
-                Text(
-                  "This is not displayed to the public, rather used by SWG team to contact you in case of any issues",
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-
-                TextFormField(
-                  decoration: const InputDecoration(labelText: 'Name'),
-                  onSaved: (value) => contactName = value!,
-                  validator: (value) =>
-                      value!.isEmpty ? 'Please enter your name' : null,
-                ),
-                TextFormField(
-                  decoration: const InputDecoration(labelText: 'Phone Number'),
-                  onSaved: (value) => contactNumber = value!,
-                  validator: (value) =>
-                      value!.isEmpty ? 'Please enter your phone number' : null,
-                ),
-                const SizedBox(height: 20),
-
-                ElevatedButton(
-                  onPressed: _submitForm,
-                  child: const Text('Submit'),
-                ),
-              ],
+                      initialTime:
+                          TimeOfDay.fromDateTime(eventTime ?? DateTime.now()));
+                  setState(() {
+                    eventTime = DateTime(
+                        chosenDate.year,
+                        chosenDate.month,
+                        chosenDate.day,
+                        chosenTime?.hour ?? 0,
+                        chosenTime?.minute ?? 0);
+                  });
+                }
+              },
             ),
-          ),
-        ));
+            const SizedBox(height: 16),
+
+            DropdownButtonFormField(
+              value: targetAudience,
+              decoration: const InputDecoration(labelText: 'Target Audience'),
+              items: targetAudiences.map((String audience) {
+                return DropdownMenuItem(
+                  value: audience,
+                  child: Text(audience),
+                );
+              }).toList(),
+              onChanged: (String? newValue) {
+                setState(() {
+                  targetAudience = newValue!;
+                });
+              },
+            ),
+            const SizedBox(height: 16),
+
+            // Image Upload Section
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 16),
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.grey[100],
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    "Event Poster",
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: 8),
+                  InkWell(
+                    onTap: _pickImage,
+                    child: Container(
+                      height: 200,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: _imageFile != null
+                          ? ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: Image.file(
+                                File(_imageFile!.path),
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: const [
+                                  Icon(Icons.add_photo_alternate_outlined,
+                                      size: 40),
+                                  SizedBox(height: 8),
+                                  Text("Tap to add poster"),
+                                ],
+                              ),
+                            ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // Contact Details Section
+            Container(
+              margin: const EdgeInsets.only(top: 16, bottom: 8),
+              child: Text(
+                "Contact Details",
+                style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+              ),
+            ),
+            Text(
+              "For SWG team to contact you if needed",
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Colors.grey[600],
+                  ),
+            ),
+            const SizedBox(height: 16),
+
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Name *',
+                filled: true,
+                fillColor: Colors.grey[100],
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+              onSaved: (value) => contactName = value!,
+              validator: (value) =>
+                  value!.isEmpty ? 'Please enter your name' : null,
+            ),
+            const SizedBox(height: 16),
+            TextFormField(
+              decoration: InputDecoration(
+                labelText: 'Phone Number *',
+                filled: true,
+                fillColor: Colors.grey[100],
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(8),
+                  borderSide: BorderSide.none,
+                ),
+              ),
+              onSaved: (value) => contactNumber = value!,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Please enter your phone number';
+                }
+                // Optional: Add phone number format validation
+                final phoneRegex =
+                    RegExp(r'^\d{10}$'); // Validates 10-digit number
+                if (!phoneRegex.hasMatch(value)) {
+                  return 'Please enter a valid 10-digit phone number';
+                }
+                return null;
+              },
+            ),
+            const SizedBox(height: 24),
+
+            // Submit Button
+            SizedBox(
+              width: double.infinity,
+              height: 48,
+              child: ElevatedButton(
+                onPressed: _submitForm,
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: const Text(
+                  'Submit Notice',
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

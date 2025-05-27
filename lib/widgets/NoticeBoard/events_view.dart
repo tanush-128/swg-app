@@ -1,23 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:swg_flutter/models/Event.dart';
+import 'package:swg_flutter/models/Notice.dart';
+import 'package:intl/intl.dart';
 
 class EventsView extends StatelessWidget {
-  EventsView({super.key});
-
-  final List<BriefEvent> events = [
-    BriefEvent(
-        heading: 'Induction Program',
-        dateTime: DateTime(2024, 7, 28, 12, 0, 0),
-        location: 'Netaji Auditorium')
-  ];
+  const EventsView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 5,
-      itemBuilder: (context, index) {
-        return EventTile(
-          event: events[0],
+    return FutureBuilder(
+      future: Notice.getAll(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (snapshot.hasError) {
+          return const Center(
+            child: Text('An error occurred'),
+          );
+        }
+        final notices = snapshot.data as List<Notice>;
+        // Sort notices by event time (most recent first)
+        notices.sort((a, b) => b.eventTime.compareTo(a.eventTime));
+
+        return ListView.builder(
+          itemCount: notices.length,
+          itemBuilder: (context, index) {
+            return EventTile(notice: notices[index]);
+          },
         );
       },
     );
@@ -25,13 +36,13 @@ class EventsView extends StatelessWidget {
 }
 
 class EventTile extends StatelessWidget {
-  const EventTile({super.key, required this.event});
-  final BriefEvent event;
+  const EventTile({super.key, required this.notice});
+  final Notice notice;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.all(8),
+      margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(10)),
@@ -39,8 +50,12 @@ class EventTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            event.heading,
+            notice.heading,
             style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700),
+          ),
+          Text(
+            'By ${notice.host}',
+            style: const TextStyle(fontSize: 12),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 10),
@@ -53,11 +68,9 @@ class EventTile extends StatelessWidget {
                       Icons.calendar_month,
                       size: 16,
                     ),
-                    const SizedBox(
-                      width: 4,
-                    ),
+                    const SizedBox(width: 4),
                     Text(
-                      '${event.dateTime.day}/${event.dateTime.month}/${event.dateTime.year}',
+                      DateFormat.MMMd().format(notice.eventTime),
                       style: const TextStyle(fontSize: 12),
                     )
                   ],
@@ -68,11 +81,8 @@ class EventTile extends StatelessWidget {
                       Icons.access_time,
                       size: 16,
                     ),
-                    const SizedBox(
-                      width: 4,
-                    ),
-                    Text(
-                        '${event.dateTime.hour}:${event.dateTime.minute.toString().padRight(2, '0')}',
+                    const SizedBox(width: 4),
+                    Text(DateFormat.jm().format(notice.eventTime),
                         style: const TextStyle(fontSize: 12))
                   ],
                 ),
@@ -82,10 +92,8 @@ class EventTile extends StatelessWidget {
                       Icons.pin_drop,
                       size: 16,
                     ),
-                    const SizedBox(
-                      width: 4,
-                    ),
-                    Text(event.location, style: const TextStyle(fontSize: 12))
+                    const SizedBox(width: 4),
+                    Text(notice.location, style: const TextStyle(fontSize: 12))
                   ],
                 )
               ],
@@ -94,6 +102,5 @@ class EventTile extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 }

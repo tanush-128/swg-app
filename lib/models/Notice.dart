@@ -19,6 +19,8 @@ class Notice {
   final String? imageUrl;
   String targetAudience;
   bool published = false;
+  String contactName;
+  String contactNumber;
 
   Notice({
     required this.heading,
@@ -29,26 +31,30 @@ class Notice {
     this.imageUrl,
     this.targetAudience = "All KGP Junta",
     this.published = false,
+    required this.contactName,
+    required this.contactNumber,
   });
   static Future<List<Notice>> getAll() async {
     try {
-      // get only where published is true
-      final querySnapshot =
-          // await FirebaseFirestore.instance.collection('notices').get();
-          await FirebaseFirestore.instance
-              .collection('notices')
-              .where('published', isEqualTo: true)
-              .get();
+      final querySnapshot = await FirebaseFirestore.instance
+          .collection('notices')
+          .where('published', isEqualTo: true)
+          .get();
       return querySnapshot.docs.map((doc) {
         return Notice(
-          heading: doc['heading'],
-          description: doc['description'],
-          eventTime: DateTime.parse(doc['eventTime']),
-          location: doc['location'],
-          host: doc['host'],
+          heading: doc['heading'] ?? '',
+          description: doc['description'] ?? '',
+          eventTime: DateTime.parse(
+              doc['eventTime'] ?? DateTime.now().toIso8601String()),
+          location: doc['location'] ?? '',
+          host: doc['host'] ?? '',
           imageUrl: doc['imageUrl'],
-          targetAudience: doc['targetAudience'],
-          published: doc['published'],
+          targetAudience: doc['targetAudience'] ?? 'All KGP Junta',
+          published: doc['published'] ?? false,
+          contactName: 'N/A',
+          contactNumber: 'N/A',
+          // contactName: doc['contactName'] ?? 'N/A',
+          // contactNumber: doc['contactNumber'] ?? 'N/A',
         );
       }).toList();
     } catch (e) {
@@ -78,6 +84,8 @@ class Notice {
         'imageUrl': imageUrl,
         'targetAudience': notice.targetAudience,
         'published': notice.published,
+        'contactName': notice.contactName,
+        'contactNumber': notice.contactNumber,
       });
     } catch (e) {
       print(e.toString());
@@ -97,6 +105,8 @@ class Notice {
         'host': notice.host,
         'targetAudience': notice.targetAudience,
         'published': notice.published,
+        'contactName': notice.contactName,
+        'contactNumber': notice.contactNumber,
       };
 
       if (notice.imageUrl != null && !notice.imageUrl!.startsWith('http')) {

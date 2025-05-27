@@ -5,19 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class NoticesView extends StatelessWidget {
-  NoticesView({super.key});
-
-  final List<Notice> notices = [
-    Notice(
-        heading: 'Summer Analytics',
-        description:
-            'Here is random desciption about the event. Dont mind reading through this. Its just some random words I wrote to make it look good at https://swgiitkgp.org/',
-        eventTime: DateTime(2024, 5, 18, 12, 0, 0),
-        location: 'V4 Vikramshila',
-        host: 'Student Welfare Group',
-        imageUrl:
-            "https://scontent-bom1-2.xx.fbcdn.net/v/t39.30808-6/454002777_901826161983011_327330898801757517_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=127cfc&_nc_ohc=qoITUwzuF0YQ7kNvgGKwTdV&_nc_ht=scontent-bom1-2.xx&oh=00_AYAmp3eauo7E2fJWF1EIqKTo225d-GNwJrF6QmAZblLluQ&oe=66B77BB0")
-  ];
+  const NoticesView({super.key});
 
   @override
   Widget build(BuildContext context) {

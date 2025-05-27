@@ -10,7 +10,7 @@ class GlobalConstants {
       mediumArticleLink:
           "https://medium.com/@swgiitkgp/know-your-department-aerospace-engineering-2f56a3572ffe",
       studyMaterialLink:
-          "https://iitkgpacin-my.sharepoint.com/:f:/g/personal/arya_rajendra_kgpian_iitkgp_ac_in/ElmpOwIdSb9JnSG0eX8vLQUB-RE191BCA2SvE4iNG1FXaw?e=47grpp",
+          "https://drive.google.com/drive/folders/1m2eK_x6DVntVUNhgcmEPRA66Wtf_d4_n", // "https://iitkgpacin-my.sharepoint.com/:f:/g/personal/arya_rajendra_kgpian_iitkgp_ac_in/ElmpOwIdSb9JnSG0eX8vLQUB-RE191BCA2SvE4iNG1FXaw?e=47grpp",
     ),
     Department(
       name: "Agricultural and Food Processing",
@@ -90,6 +90,15 @@ class GlobalConstants {
           "https://medium.com/@swgiitkgp/know-your-department-geology-and-geophysics-31fd09664b3d",
       studyMaterialLink:
           "https://drive.google.com/drive/folders/1aSo54MIhO1mltD6vg8eL6xYbdpm0yKzK",
+    ),
+    Department(
+      name: "Geology and Geophysics",
+      image: "assets/images/dept logo/GG.png",
+      code: "GG",
+      mediumArticleLink:
+          "https://medium.com/@swgiitkgp/know-your-department-geology-and-geophysics-31fd09664b3d",
+      studyMaterialLink:
+          "https://drive.google.com/drive/folders/1k47aEgIQ-xeA13yD6ABI9HNNocRo2vQq",
     ),
     Department(
       name: "Humanities and Social Sciences",
@@ -180,9 +189,6 @@ class GlobalConstants {
     ),
   ];
 }
-
-
-
 
 class GlobalStyles {
   static Color kPrimaryBlueColor = const Color.fromARGB(255, 211, 250, 255);

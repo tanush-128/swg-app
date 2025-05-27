@@ -3,11 +3,14 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:swg_flutter/constants.dart';
 import 'package:swg_flutter/models/Department.dart';
+import 'package:swg_flutter/models/Event.dart';
+import 'package:swg_flutter/models/Notice.dart';
 import 'package:swg_flutter/models/Society.dart';
 import 'package:swg_flutter/views/SocietiesPage.dart';
 import 'package:swg_flutter/views/subviews/KnowYourDepartment.dart';
 import 'package:swg_flutter/widgets/StudyMaterial/year_wise_tab.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:swg_flutter/widgets/LandingPage/event_banner.dart';
 
 class LandingPage extends StatelessWidget {
   final Function toPage;
@@ -86,20 +89,43 @@ class LandingPage extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 4),
-                        CarouselSlider(
-                          options: CarouselOptions(
-                            height: 150.0,
-                            enlargeFactor: 1.2,
-                            autoPlay: true,
-                            viewportFraction: 1,
-                          ),
-                          items: [1, 2, 3, 4, 5].map((i) {
-                            return Builder(
-                              builder: (BuildContext context) {
-                                return const EventBanner();
-                              },
+                        FutureBuilder(
+                          future: Notice.getAll(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              return const Center(
+                                child: CircularProgressIndicator(),
+                              );
+                            }
+                            if (snapshot.hasError) {
+                              return const Center(
+                                child: Text('An error occurred'),
+                              );
+                            }
+                            final allEvents = snapshot.data as List<Notice>;
+                            final events = allEvents.where((event) {
+                              return event.published;
+                            }).toList();
+
+                            if (events.isEmpty) {
+                              return const Center(
+                                child: Text('No upcoming events'),
+                              );
+                            }
+
+                            return CarouselSlider(
+                              options: CarouselOptions(
+                                height: 150.0,
+                                enlargeFactor: 1.2,
+                                autoPlay: true,
+                                viewportFraction: 1,
+                              ),
+                              items: events.map((i) {
+                                return EventBanner(event: i);
+                              }).toList(),
                             );
-                          }).toList(),
+                          },
                         ),
                         const SizedBox(height: 12),
                         Column(
@@ -304,7 +330,7 @@ class LandingPage extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Text(
-                    "Socities",
+                    "Societies",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -608,7 +634,7 @@ class LandingPage extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.all(8.0),
                   child: Text(
-                    "Benifits of Institute ID",
+                    "Benefits of Institute ID",
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -663,82 +689,6 @@ class LandingPage extends StatelessWidget {
   }
 }
 
-class EventBanner extends StatelessWidget {
-  const EventBanner({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        width: MediaQuery.of(context).size.width,
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(10))),
-        margin: const EdgeInsets.symmetric(horizontal: 5.0),
-        child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              image: const DecorationImage(
-                image: AssetImage('assets/images/cos1.png'),
-                fit: BoxFit.cover,
-                opacity: 0.8,
-                colorFilter: ColorFilter.mode(
-                    Color.fromARGB(137, 37, 37, 37), BlendMode.colorBurn),
-              )),
-          child: const Stack(
-            children: [
-              Positioned(
-                top: 0,
-                left: 0,
-                child: Padding(
-                  padding: EdgeInsets.all(12.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Carrer Orientation Session",
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Color.fromRGBO(241, 191, 87, 1))),
-                      Text("Student Welfare Group",
-                          style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white)),
-                      Text("Date and Time: ",
-                          style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white)),
-                      Text("Location: ",
-                          style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white)),
-                      Text("Target Audience:",
-                          style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w500,
-                              color: Colors.white)),
-                    ],
-                  ),
-                ),
-              ),
-              Positioned(
-                  bottom: 4,
-                  right: 8,
-                  child: Text("Know More >",
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                          decoration: TextDecoration.underline)))
-            ],
-          ),
-        ));
-  }
-}
-
 class ViewMore extends StatelessWidget {
   const ViewMore({
     super.key,
@@ -790,11 +740,12 @@ class DepartmentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         final Uri uri = Uri.parse(department.mediumArticleLink ?? '');
         launchUrl(uri);
       },
+      // decoration: const BoxDecoration(color: Colors.amber),
       child: Column(
         children: [
           Image.asset(
